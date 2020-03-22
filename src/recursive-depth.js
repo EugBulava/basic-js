@@ -1,14 +1,20 @@
 module.exports = class DepthCalculator {
+
     calculateDepth(arr) {
-        //console.log(typeof arr);
-        if(typeof arr !== 'object' || arr == []){
+        var max = 1;
+        if(!Array.isArray(arr)){
             return 0;
-        }else {
-            for(var i= 0; i<= arr.length-1; i++){
-                
+        } 
+
+        for(var i= 0; i<= arr.length-1; i++){
+            if(Array.isArray(arr[i])){
+                var k = this.calculateDepth(arr[i]) + 1;
+                max = k > max ? k : max;
             }
-        }
+        };
+
+        return max;
     }
 };
 
-//(new DepthCalculator()).calculateDepth([[[[]]],[],[]]);
+//console.log((new DepthCalculator()).calculateDepth([[],[[]]]));
